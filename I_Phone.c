@@ -46,7 +46,7 @@ interrupt [PC_INT2] void pin_change_isr2(void)
    //VB_Come
    if(Port_Value & (1<<VB))
    {
-     /*if(VB==0)*/
+     if((!(PIND&(1<<VB)))&& (Speaker_Flag==ON))
     /*{*/
      if(VB_Status<128)
      {   
@@ -64,7 +64,7 @@ interrupt [PC_INT2] void pin_change_isr2(void)
    //END_CALL
    else if (Port_Value & (1<<END_CALL))
    {
-    if (CALL_COME_FLAG==ON /*&& END_CALL==0*/ )
+    if ((CALL_COME_FLAG==ON) && (!(PIND&(1<<END_CALL))) )
     {
     PORTC&=~(1<<Screen);;
     Screen_Flag=OFF;
@@ -78,7 +78,7 @@ interrupt [PC_INT2] void pin_change_isr2(void)
    //Accept_CALL
     else if (Port_Value & (1<<ACCEPT_CALL))
    {
-    if (CALL_COME_FLAG==ON /*&& ACCEPT_CALL==0*/ )
+    if ((CALL_COME_FLAG==ON) && (!(PIND&(1<<ACCEPT_CALL))) )
     {
      PORTD&=~(1<<Ringer);;
      Ringer_Flag=OFF; 
